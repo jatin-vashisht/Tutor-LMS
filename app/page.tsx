@@ -6,7 +6,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const page = () => {
+const Homepage = () => {
   const { data: session } = authClient.useSession();
   const router = useRouter();
 
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Homepage;

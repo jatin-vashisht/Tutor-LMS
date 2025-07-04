@@ -13,8 +13,6 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import {
   InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
@@ -28,6 +26,12 @@ const page = () => {
   const email = params.get("email") as string;
   const isOtpCompleted = otp.length === 6;
 
+  const { data: session } = authClient.useSession();
+  if (session) {
+    router.push("/");
+    return null; // Prevent rendering the page if already logged in
+  }
+  
   function verifyOtp() {
     startEmailTransition(async () => {
       await authClient.signIn.emailOtp({
@@ -45,6 +49,8 @@ const page = () => {
       });
     });
   }
+
+
   return (
     <Card className="w-full mx-auto">
       <CardHeader className="text-center">
@@ -81,7 +87,7 @@ const page = () => {
         >
           <>
             {emailPending ? (
-                <span><Loader2 className="size-4 mr-2 animate-spin" /> Verifying...</span>
+                <span className="flex items-center"><Loader2 className="size-4 mr-2 animate-spin" /> Verifying...</span>
             ) : (
                 <span>Verify Email</span>
             )}
