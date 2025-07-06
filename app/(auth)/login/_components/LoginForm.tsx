@@ -28,7 +28,7 @@ const LoginForm = () => {
         callbackURL: "/",
         fetchOptions: {
           onSuccess: () => {
-            toast.success("Signed in with Github, you will be redirected...");
+            toast.success("Signed in with Github, you are being redirected...");
           },
           onError: (error) => {
             toast.error(`Internal Server Error`);
