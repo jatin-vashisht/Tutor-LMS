@@ -36,7 +36,7 @@ const Navbar = () => {
           <span className="font-bold">TutorLMS</span>
         </Link>
 
-        <nav className="hidden md:flex md:items-center md:justify-between md:ml-12">
+        <nav className="hidden md:flex md:items-center md:justify-between">
           <div className="flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -59,9 +59,16 @@ const Navbar = () => {
 
           {isPending ? null : session ? (
             <UserDropdown
-              name={session.user.name}
+              name={
+                session?.user.name && session.user.name.length > 0
+                  ? session.user.name
+                  : session?.user.email.split("@")[0]
+              }
               email={session.user.email}
-              image={session.user.image || ""}
+              image={
+                session.user.image ??
+                `https://avatar.vercel.sh/${session?.user.email}`
+              }
             />
           ) : (
             <>
